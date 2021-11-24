@@ -7,6 +7,7 @@ def draw_user_retention(df):
     x = df.columns
     y = df.index
     annotations = []
+
     for n, row in enumerate(z):
         for m, val in enumerate(row):
             annotations.append(
@@ -19,6 +20,7 @@ def draw_user_retention(df):
                     showarrow=False,
                 )
             )
+
     layout = dict(
         title="Cohorts: User Retention",
         title_x=0.5,
@@ -26,7 +28,6 @@ def draw_user_retention(df):
         yaxis=dict(
             showgrid=False,
             tickmode="array",
-            tickvals=np.arange(1, len(y) + 1),
             ticktext=y,
             autorange="reversed",
         ),
@@ -35,9 +36,7 @@ def draw_user_retention(df):
         height=700,
         autosize=False,
     )
-    print(x)
-    print(y)
-    trace = go.Heatmap(x=x, y=y, z=z)
+    trace = go.Heatmap(x=x, y=y, z=z, colorscale="Viridis")
     fig = go.Figure(data=trace, layout=layout)
 
     return fig

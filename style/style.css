@@ -1,0 +1,24 @@
+.frequentist_title {
+    float: left
+}
+
+.frequentist_icon {
+    float: left;
+    margin-left: 10px;
+    width: 40px;
+}
+
+.higher {
+    color: green;
+    weight: 800;
+}
+
+.lower {
+    color: red
+}
+
+.error {
+    align: right;
+    width: 100px;
+    margin: auto
+}
