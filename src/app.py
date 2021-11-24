@@ -1,10 +1,11 @@
 import datetime
 
 import hydralit_components as hc
-import numpy as np
+import plotly.express as px
 import streamlit as st
 
-from data.dataset import load_data
+from data.dataset import load_cohorts, load_user_retention
+from graph.graph import draw_user_retention
 
 if __name__ == "__main__":
     # make it look nice from the start
@@ -16,7 +17,7 @@ if __name__ == "__main__":
     # specify the primary menu definition
     menu_data = [
         {"icon": "far fa-copy", "label": "Left End"},
-        {"id": "Copy", "icon": "🐙", "label": "Copy"},
+        {"id": "Cohort Analysis", "icon": "📈", "label": "Cohort Analysis"},
         {
             "icon": "fa-solid fa-radar",
             "label": "Dropdown1",
@@ -60,27 +61,25 @@ if __name__ == "__main__":
         sticky_mode="pinned",  # jumpy or not-jumpy, but sticky or pinned
     )
 
-    if menu_id == "Copy":
-        DATE_COLUMN = "date/time"
-
-        st.title("Uber pickups in NYC")
+    if menu_id == "Cohort Analysis":
+        st.title("Load Cohort Dataset")
         data_load_state = st.text("Loading data...")
-        data = load_data(10000)
+        chorts = load_cohorts("../input/relay-foods.xlsx")
+        user_retention = load_user_retention(chorts)
         data_load_state.text("Done! (using st.cache)")
 
         if st.checkbox("Show raw data"):
             st.subheader("Raw data")
-            st.write(data)
+            st.write(chorts)
 
-        st.subheader("Number of pickups by hour")
-        hist_values = np.histogram(data[DATE_COLUMN].dt.hour, bins=24, range=(0, 24))[0]
-        st.bar_chart(hist_values)
+        st.header("Draw Polt Chart")
+        fig = px.line(user_retention)
+        st.plotly_chart(fig)
 
-        hour_to_filter = st.slider("hour", 0, 23, 17)
-        filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
+        st.header("Draw Cohorts: User Retention")
+        fig = draw_user_retention(user_retention.T)
+        st.plotly_chart(fig)
 
-        st.subheader("Map of all pickups at %s:00" % hour_to_filter)
-        st.map(filtered_data)
     if st.button("click me"):
         st.info("You clicked at: {}".format(datetime.datetime.now()))
 
