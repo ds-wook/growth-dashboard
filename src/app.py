@@ -58,7 +58,7 @@ if __name__ == "__main__":
         st.plotly_chart(fig, height=800, width=500)
 
     if menu_id == "User acquisition":
-        st.title("Load Cohort Dataset")
+        st.title("Load User acquisition Dataset")
         data_load_state = st.text("Loading data...")
         events = pd.read_csv("../input/events.csv")
         events["time"] = pd.to_datetime(events["time"], errors="coerce")
@@ -83,15 +83,15 @@ if __name__ == "__main__":
         st.plotly_chart(fig, height=800, width=500)
 
     if menu_id == "Funnel Analysis":
-        st.title("Load Cohort Dataset")
+        st.title("Load Funnel Dataset")
         data_load_state = st.text("Loading data...")
         events = pd.read_csv("../input/events.csv")
         events["time"] = pd.to_datetime(events["time"], errors="coerce")
         steps = ["Install", "SignUp", "Click Product", "Purchase"]
         funnel_df = create_funnel_df(events, steps)
-
+        st.write(funnel_df)
         st.header("Draw Funnel Analysis")
-        fig = plot_stacked_funnel(events, steps)
+        fig = plot_stacked_funnel(events, steps, col="user_source")
         st.plotly_chart(fig, height=800, width=500)
 
     if menu_id == "AB-Test":
