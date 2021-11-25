@@ -7,6 +7,7 @@ import pandas as pd
 import streamlit as st
 
 from data.acquisition import users_per_period
+from data.funnel import create_funnel_df
 from data.retention import load_cohorts, load_user_retention
 from home import draw_abtest
 from visualizations.funnel_plots import plot_stacked_funnel

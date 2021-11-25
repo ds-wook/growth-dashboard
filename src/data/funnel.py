@@ -1,3 +1,4 @@
+from datetime import timedelta
 from typing import Any, Dict, List, Optional
 
 import pandas as pd
@@ -74,7 +75,7 @@ def create_funnel_df(
 
             # keep only events that happened after previous step and sort by time
             merged = merged[
-                merged["time_y"] >= (merged["time_x"] + step_interval)
+                merged["time_y"] >= (merged["time_x"] + timedelta(step_interval))
             ].sort_values("time_y", ascending=True)
 
             # take the minimum time of the valid ones for each user
