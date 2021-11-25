@@ -15,16 +15,7 @@ DATA_URL = (
 
 # Label the CohortPeriod for each CohortGroup
 def cohort_period(df):
-    """
-    Creates a `CohortPeriod` column, which is the Nth period based on the user's first purchase.
 
-    Example
-    -------
-    Say you want to get the 3rd month for every user:
-        df.sort(['UserId', 'OrderTime', inplace=True)
-        df = df.groupby('UserId').apply(cohort_period)
-        df[df.CohortPeriod == 3]
-    """
     df["CohortPeriod"] = np.arange(len(df)) + 1
     return df
 
