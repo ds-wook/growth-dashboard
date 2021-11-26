@@ -3,7 +3,6 @@ from typing import Any, Dict, Optional
 
 import pandas as pd
 import plotly.graph_objects as go
-import streamlit as st
 
 
 def to_excel(
@@ -81,11 +80,6 @@ def round_decimals_down(number: float, decimals: int = 2) -> float:
 
     factor = 10 ** decimals
     return math.floor(number * factor) / factor
-
-
-def local_css(file_name: str) -> str:
-    with open(file_name) as f:
-        st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
 
 def percentage_format(x: float) -> str:

@@ -2,7 +2,12 @@ import streamlit as st
 
 from pyuba.calc.bayesian import Bayesian
 from pyuba.calc.frequentist import Frequentist
-from pyuba.utils.utils import create_plotly_table, local_css
+from pyuba.utils.utils import create_plotly_table
+
+
+def local_css(file_name: str) -> str:
+    with open(file_name) as f:
+        st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
 
 def draw_abtest():
