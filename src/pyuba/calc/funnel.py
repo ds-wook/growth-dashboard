@@ -118,7 +118,7 @@ def group_funnel_dfs(
     assert isinstance(col, str), '"col" should be a string'
     assert hasattr(events, col), '"col" should be a column in "events"'
 
-    dict_ = {}
+    dict_dataframes = {}
     # get the distinct_ids for each property that we are grouping by
     ids = dict(events.groupby([col])["distinct_id"].apply(set))
 
@@ -126,6 +126,6 @@ def group_funnel_dfs(
         ids_list = ids[entry]
         df = events[events["distinct_id"].isin(ids_list)].copy()
         if len(df[df["name"] == steps[0]]) > 0:
-            dict_[entry] = create_funnel_df(df, steps)
+            dict_dataframes[entry] = create_funnel_df(df, steps)
 
-    return dict_
+    return dict_dataframes

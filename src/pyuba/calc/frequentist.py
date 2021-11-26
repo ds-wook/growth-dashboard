@@ -1,9 +1,11 @@
+from typing import Tuple
+
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 import numpy as np
 import scipy.stats as scs
 import seaborn as sns
-import streamlit as st
+from matplotlib.figure import Figure
 
 
 class Frequentist:
@@ -36,12 +38,12 @@ class Frequentist:
 
     def __init__(
         self,
-        visitors_A,
-        conversions_A,
-        visitors_B,
-        conversions_B,
-        alpha=0.05,
-        two_tails=True,
+        visitors_A: int,
+        conversions_A: int,
+        visitors_B: int,
+        conversions_B: int,
+        alpha: float = 0.05,
+        two_tails: bool = True,
     ):
         self.visitors_A = visitors_A
         self.conversions_A = conversions_A
@@ -63,7 +65,7 @@ class Frequentist:
         else:
             self.tail_direction = "two"
 
-    def z_test(self):
+    def z_test(self) -> Tuple[float]:
         """Run a Z-test with your data, returning the Z-score and p-value.
         Returns
         -------
@@ -97,7 +99,7 @@ class Frequentist:
 
         return self.z_score, self.p_value
 
-    def get_power(self):
+    def get_power(self) -> float:
         """Returns observed power from test results."""
 
         n = self.visitors_A + self.visitors_B
@@ -127,7 +129,7 @@ class Frequentist:
 
         return self.power
 
-    def get_z_value(self):
+    def get_z_value(self) -> float:
         z_dist = scs.norm()
         if self.two_tails:
             self.alpha = self.alpha / 2
@@ -138,7 +140,7 @@ class Frequentist:
         self.z = z_dist.ppf(area)
         return self.z
 
-    def plot_test_visualisation(self):
+    def plot_test_visualisation(self) -> Figure:
         """Plots a visualisation of the Z test and its results."""
 
         fig, ax = plt.subplots(figsize=(10, 5), dpi=150)
@@ -210,9 +212,9 @@ class Frequentist:
         ax.get_yaxis().set_visible(False)
         fig.tight_layout()
 
-        st.write(fig)
+        return fig
 
-    def plot_power(self):
+    def plot_power(self) -> Figure:
         """Returns a streamlit plot figure visualising Power based on the
         results of an AB test."""
 
@@ -363,4 +365,4 @@ class Frequentist:
         ax.get_yaxis().set_visible(False)
         fig.tight_layout()
 
-        st.write(fig)
+        return fig

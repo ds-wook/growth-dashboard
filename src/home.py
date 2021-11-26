@@ -1,8 +1,8 @@
 import streamlit as st
 
-from calc.bayesian import Bayesian
-from calc.frequentist import Frequentist
-from calc.functions import create_plotly_table, local_css
+from pyuba.calc.bayesian import Bayesian
+from pyuba.calc.frequentist import Frequentist
+from pyuba.utils.utils import create_plotly_table, local_css
 
 
 def draw_abtest():
@@ -61,7 +61,8 @@ def draw_abtest():
         try:
             b.generate_posterior_samples()
             b.calculate_probabilities()
-            b.plot_bayesian_probabilities()
+            fig = b.plot_bayesian_probabilities()
+            st.write(fig)
 
             st.text("")
 
@@ -80,8 +81,8 @@ def draw_abtest():
                 ],
             }
 
-            create_plotly_table(bayesian_data)
-
+            fig = create_plotly_table(bayesian_data)
+            st.plotly_chart(fig)
             """
             The below graph plots the simulated difference between the two
             posterior distributions for the variants. It highlights the potential
@@ -91,8 +92,8 @@ def draw_abtest():
 
             st.text("")
 
-            b.plot_simulation_of_difference()
-
+            fig = b.plot_simulation_of_difference()
+            st.write(fig)
             """
             ---
             ### Recommended Reading
@@ -198,8 +199,8 @@ def draw_abtest():
             "<b>P-value</b>": ["", f"{p_value:.4f}"],
         }
 
-        create_plotly_table(frequentist_data)
-
+        fig = create_plotly_table(frequentist_data)
+        st.plotly_chart(fig)
         z = f.get_z_value()
 
         """
@@ -242,7 +243,8 @@ def draw_abtest():
         type II error.
         """
 
-        f.plot_power()
+        fig = f.plot_power()
+        st.write(fig)
 
         """
         ---

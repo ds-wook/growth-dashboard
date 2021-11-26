@@ -1,8 +1,8 @@
 from typing import Any, Dict, Optional
 
 import pandas as pd
+from pyuba.calc.acquisition import users_per_period
 from plotly import graph_objs as go
-from data.acquisition import users_per_period
 
 
 def plot_users_per_period(

@@ -1,9 +1,8 @@
 from typing import List, Optional
 
 import pandas as pd
+from pyuba.calc.funnel import create_funnel_df, group_funnel_dfs
 from plotly import graph_objs as go
-
-from data.funnel import create_funnel_df, group_funnel_dfs
 
 
 def plot_stacked_funnel(

@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 import scipy.stats as scs
 import seaborn as sns
-import streamlit as st
+from matplotlib.figure import Figure
 
-from calc.functions import round_decimals_down
+from pyuba.utils.utils import round_decimals_down
 
 
 class Bayesian:
@@ -39,7 +39,9 @@ class Bayesian:
         vs a negative one.
     """
 
-    def __init__(self, visitors_A, conversions_A, visitors_B, conversions_B):
+    def __init__(
+        self, visitors_A: int, conversions_A: int, visitors_B: int, conversions_B: int
+    ):
         self.visitors_A = visitors_A
         self.conversions_A = conversions_A
         self.visitors_B = visitors_B
@@ -74,7 +76,10 @@ class Bayesian:
         self.prob_A = (self.samples_posterior_A > self.samples_posterior_B).mean()
         self.prob_B = (self.samples_posterior_A <= self.samples_posterior_B).mean()
 
-    def plot_bayesian_probabilities(self, labels: List[str] = ["A", "B"]):
+    def plot_bayesian_probabilities(
+        self,
+        labels: List[str] = ["A", "B"],
+    ) -> Figure:
         """
         Plots a horizontal bar chart of the likelihood of either variant being
         the winner
@@ -148,7 +153,7 @@ class Bayesian:
         ax.tick_params(axis="both", which="both", bottom=False, left=False)
         fig.tight_layout()
 
-        st.write(fig)
+        return fig
 
     def plot_simulation_of_difference(self):
         """
@@ -204,4 +209,4 @@ class Bayesian:
         ax.xaxis.set_major_formatter(mtick.PercentFormatter(1))
         fig.tight_layout()
 
-        st.write(fig)
+        return fig

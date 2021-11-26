@@ -1,8 +1,7 @@
 from typing import Any, Dict, Optional
 
 import pandas as pd
-
-from data.user_journey import sankey_df
+from pyuba.calc.user_journey import sankey_df
 
 
 def plot_user_flow(

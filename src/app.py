@@ -1,18 +1,11 @@
-import datetime
-
 import hydralit_components as hc
 import pandas as pd
 
 # import plotly.express as px
 import streamlit as st
 
-from data.acquisition import users_per_period
-from data.funnel import create_funnel_df
-from data.retention import load_cohorts, load_user_retention
+import pyuba as uba
 from home import draw_abtest
-from visualizations.funnel_plots import plot_stacked_funnel
-from visualizations.growth import plot_users_per_period
-from visualizations.retention_plots import draw_user_retention
 
 if __name__ == "__main__":
     # make it look nice from the start
@@ -47,14 +40,14 @@ if __name__ == "__main__":
         data_load_state = st.text("Loading data...")
         events = pd.read_csv("../input/events.csv")
         events["time"] = pd.to_datetime(events["time"], errors="coerce")
-        cohorts = load_cohorts(events)
-        user_retention = load_user_retention(cohorts)
+        cohorts = uba.load_cohorts(events)
+        user_retention = uba.load_user_retention(cohorts)
 
         st.subheader("Raw data")
         st.write(events)
 
         st.header("Draw Cohorts: User Retention")
-        fig = draw_user_retention(user_retention.T)
+        fig = uba.draw_user_retention(user_retention.T)
         st.plotly_chart(fig, height=800, width=500)
 
     if menu_id == "User acquisition":
@@ -65,7 +58,7 @@ if __name__ == "__main__":
 
         st.subheader("activity stats per period")
         st.write(
-            users_per_period(
+            uba.users_per_period(
                 events=events,
                 acquisition_event_name="Install",
                 user_source_col="user_source",
@@ -74,7 +67,7 @@ if __name__ == "__main__":
         )
 
         st.header("Draw User acquisition")
-        fig = plot_users_per_period(
+        fig = uba.plot_users_per_period(
             events=events,
             acquisition_event_name="Install",
             user_source_col="user_source",
@@ -88,10 +81,10 @@ if __name__ == "__main__":
         events = pd.read_csv("../input/events.csv")
         events["time"] = pd.to_datetime(events["time"], errors="coerce")
         steps = ["Install", "SignUp", "Click Product", "Purchase"]
-        funnel_df = create_funnel_df(events, steps)
+        funnel_df = uba.create_funnel_df(events, steps)
         st.write(funnel_df)
         st.header("Draw Funnel Analysis")
-        fig = plot_stacked_funnel(events, steps, col="user_source")
+        fig = uba.plot_stacked_funnel(events, steps, col="user_source")
         st.plotly_chart(fig, height=800, width=500)
 
     if menu_id == "AB-Test":
@@ -109,9 +102,6 @@ if __name__ == "__main__":
 
     # if st.button("click me"):
     #     st.info("You clicked at: {}".format(datetime.datetime.now()))
-
-    if st.sidebar.button("click me too"):
-        st.info("You clicked at: {}".format(datetime.datetime.now()))
 
     # get the id of the menu item clicked
     st.info(f"{menu_id}")

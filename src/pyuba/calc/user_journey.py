@@ -104,7 +104,7 @@ def user_journey(
 
 def sankey_df(
     events: pd.DataFrame, starting_step: str, n_steps: int = 3, events_per_step: int = 5
-) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+) -> Tuple[pd.DataFrame]:
     """
     Function used to generate the dataframe needed to be passed to the sankey generation function.
     "source" and "target" column pairs denote links that will be shown in the sankey diagram.
