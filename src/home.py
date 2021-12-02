@@ -2,7 +2,7 @@ import streamlit as st
 
 from pyuba.calc.bayesian import Bayesian
 from pyuba.calc.frequentist import Frequentist
-from pyuba.utils.utils import create_plotly_table
+from pyuba.calc.utils import create_plotly_table
 
 
 def local_css(file_name: str) -> str:
