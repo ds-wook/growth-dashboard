@@ -1,10 +1,7 @@
 import hydralit_components as hc
-import pandas as pd
-
-# import plotly.express as px
+import pyuba as uba
 import streamlit as st
 
-import pyuba as uba
 from home import draw_abtest
 
 if __name__ == "__main__":
@@ -38,8 +35,7 @@ if __name__ == "__main__":
     if menu_id == "Cohort Analysis":
         st.title("Load Cohort Dataset")
         data_load_state = st.text("Loading data...")
-        events = pd.read_csv("../input/events.csv")
-        events["time"] = pd.to_datetime(events["time"], errors="coerce")
+        events = uba.load_dataset(1000)
         cohorts = uba.load_cohorts(events)
         user_retention = uba.load_user_retention(cohorts)
 
@@ -53,8 +49,7 @@ if __name__ == "__main__":
     if menu_id == "User acquisition":
         st.title("Load User acquisition Dataset")
         data_load_state = st.text("Loading data...")
-        events = pd.read_csv("../input/events.csv")
-        events["time"] = pd.to_datetime(events["time"], errors="coerce")
+        events = uba.load_dataset(10000)
 
         st.subheader("activity stats per period")
         st.write(
@@ -78,8 +73,8 @@ if __name__ == "__main__":
     if menu_id == "Funnel Analysis":
         st.title("Load Funnel Dataset")
         data_load_state = st.text("Loading data...")
-        events = pd.read_csv("../input/events.csv")
-        events["time"] = pd.to_datetime(events["time"], errors="coerce")
+        events = uba.load_dataset(10000)
+
         steps = ["Install", "SignUp", "Click Product", "Purchase"]
         funnel_df = uba.create_funnel_df(events, steps)
         st.write(funnel_df)
