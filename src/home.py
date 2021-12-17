@@ -1,5 +1,4 @@
 import streamlit as st
-
 from pyuba.calc.bayesian import Bayesian
 from pyuba.calc.frequentist import Frequentist
 from pyuba.calc.utils import create_plotly_table
@@ -13,12 +12,14 @@ def local_css(file_name: str) -> str:
 def draw_abtest():
     local_css("../style/style.css")
 
-    """
+    st.markdown(
+        """
     # AB test calculator
     _Enter your test data into the sidebar and choose either a Bayesian or
     Frequentist testing approach. Below is Bayesian by default._
     ---
     """
+    )
 
     # Sidebar
     st.sidebar.markdown(
@@ -62,7 +63,26 @@ def draw_abtest():
 
     # Bayesian Method
     if method == "Bayesian":
+        st.markdown(
+            """
+            ```python
+            from pyuba.calc.bayesian import Bayesian
 
+
+            visitors_A = 50000
+            conversions_A = 1500
+            visitors_B = 50000
+            conversions_B = 1560
+
+            b = Bayesian(visitors_A, conversions_A, visitors_B, conversions_B)
+            b.generate_posterior_samples()
+            b.calculate_probabilities()
+            fig = b.plot_bayesian_probabilities()
+
+            fig.show()
+            ```
+            """
+        )
         try:
             b.generate_posterior_samples()
             b.calculate_probabilities()
@@ -125,7 +145,25 @@ def draw_abtest():
             """
 
     else:  # Frequentist
+        st.markdown(
+            """
+            ```python
+            from pyuba.calc.frequentist import Frequentist
 
+            f = Frequentist(
+                visitors_A,
+                conversions_A,
+                visitors_B,
+                conversions_B,
+                alpha=alpha_input,
+                two_tails=two_tails_bool,
+            )
+
+            z_score, p_value = f.z_test()
+
+            ```
+            """
+        )
         f = Frequentist(
             visitors_A,
             conversions_A,
@@ -136,7 +174,6 @@ def draw_abtest():
         )
 
         z_score, p_value = f.z_test()
-
         power = f.get_power()
 
         if p_value < alpha_input:
@@ -190,6 +227,31 @@ def draw_abtest():
             or conclude the test as inconclusive.
             """
 
+        st.markdown(
+            """
+            ```python
+            from pyplot.pyplot import iplot
+
+            frequentist_data = {
+                "<b>Variant</b>": ["A", "B"],
+                "<b>Visitors</b>": [f"{f.visitors_A:,}", f"{f.visitors_B:,}"],
+                "<b>Conversions</b>": [f.conversions_A, f.conversions_B],
+                "<b>Conversion rate</b>": [
+                    f"{f.control_cr:.2%}",
+                    f"{f.variant_cr:.2%}",
+                ],
+                "<b>Uplift</b>": ["", f"{f.relative_difference:.2%}"],
+                "<b>Power</b>": ["", f"{power:.4f}"],
+                "<b>Z-score</b>": ["", f"{z_score:.4f}"],
+                "<b>P-value</b>": ["", f"{p_value:.4f}"],
+            }
+
+            fig = create_plotly_table(frequentist_data)
+            iplot(fig)
+            f.plot_test_visualisation()
+            ```
+            """
+        )
         frequentist_data = {
             "<b>Variant</b>": ["A", "B"],
             "<b>Visitors</b>": [f"{f.visitors_A:,}", f"{f.visitors_B:,}"],
@@ -213,7 +275,6 @@ def draw_abtest():
         The plot below shows the distribution of the difference of the means that
         we would expect under the null hypothesis.
         """
-
         f.plot_test_visualisation()
 
         if p_value < alpha_input:
@@ -247,7 +308,16 @@ def draw_abtest():
         power is 1 - {power:.2%} = {1-power:.2%} which is our likelihood of a
         type II error.
         """
+        st.markdown(
+            """
+            ```python
+            from pyplot.pyplot import iplot
 
+            fig = f.plot_power()
+            iplot(fig)
+            ```
+            """
+        )
         fig = f.plot_power()
         st.write(fig)
 

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Information Design</title>
+    <link href="style.css" type="text/css" rel="stylesheet" />
+    <script src="library/d3/d3.v4.min.js" type="text/JavaScript"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://d3js.org/queue.v1.min.js"></script>
+</head>
+
+<body>
+ <!--타이틀과 설명-->
+<div id="header">
+    <div class="title">
+    <img src="images/title.png" height="120" width="800" alt="title" class="title-item"/>
+    </div>
+</div>
+
+ <!--내용-->
+<div id="content">
+
+ <!--start_서울시 지도와 지표 그래프-->
+    <div class="main_map">
+        <!--start_서울시 지도-->
+        <div class="wrapper_map">
+
+            <div class="map_title"><p>서울시 살기 좋은 동네 종합 지표점수 지도</p>
+            </div>
+            <!--서울시 지도-->
+            <div class="map">
+            </div>
+
+        </div>
+        <!--end_서울시 지도-->
+
+        <!--start_지표 그래프-->
+        <div class="wrapper_indicator">
+            
+            <div class="genderratio_title"><p>하위 지표점수 반영 방식</p>
+            </div>
+            <!--성별 청년 인구수 그래프-->
+            <div class="genderratio"><p>지표별 평가 요소를</br>면적대비/인구대비로 계산하여</br>자치구 점수를 부여</br>(가중치 지표별 25%)</p>
+            </div>
+
+            <div class="indicator_title"><p>자치구 하위 지표 현황</p>
+            </div>
+            <!--지표 그래프-->
+            <div class="indicator"><div class="radarChart"></div>
+            </div>
+                <script src="/js/map.js"></script>
+        </div>
+        <!--end_지표 그래프-->
+
+        <!--start_지표 바 그래프-->
+        <div class="wrapper_indicator_bar">
+
+            <div class="indicator_bar_title"><p>종합 지표점수 순위</p>
+            </div>
+            <!--지표 바 그래프-->
+            <div class="indicator_bar"><div class="stack_bar"></div>
+            </div>
+                <script src="/js/stack_bar.js"></script>
+        </div>
+        <!--end_지표 바 그래프-->
+
+    </div>
+ <!--end_서울시 지도와 지표 그래프-->
+
+
+ <!--start_구단위 지표 항목별 순위 그래프-->
+    <div class="wrapper_indicator_items" id="wrapper_indicator_items100">
+
+        <div class="items_title"><p>살기 좋은 동네 하위 지표별 점수</p>
+        </div>
+
+        <div class="wrapper_indicator_item">
+
+            <div class="indicator_item_title"><p>자치구 기반시설 점수</p><button type="button" onclick="location.href='#wrapper_facility_item100' ">평가 요소 자세히</button>
+            </div>
+            <!--구별 기반시설 그래프-->
+            <div class="indicator_item">
+                <div class="facility"></div>
+            </div>
+
+        </div>
+
+        <div class="wrapper_indicator_item">
+
+            <div class="indicator_item_title"><p>자치구 문화환경 점수</p><button type="button" onclick="location.href='#wrapper_culture_item100' ">평가 요소 자세히</button>
+            </div>
+            <!--구별 문화/환경 그래프-->
+            <div class="indicator_item">
+                <div class="culture"></div>
+            </div>
+
+        </div>
+
+            <div class="wrapper_indicator_item">
+
+            <div class="indicator_item_title"><p>자치구 안전성 점수</p><button type="button" onclick="location.href='#wrapper_crime_item100' ">평가 요소 자세히</button>
+            </div>
+            <!--구별 안전성 그래프-->
+            <div class="indicator_item">
+                <div class="crime"></div>
+            </div>
+
+        </div>
+
+            <div class="wrapper_indicator_item">
+
+            <div class="indicator_item_title"><p>자치구 건강의료 점수</p><button type="button" onclick="location.href='#wrapper_health_item100' ">평가 요소 자세히</button>
+            </div>
+            <!--구별 건강/의료 그래프-->
+            <div class="indicator_item">
+                <div class="health"></div>
+            </div>
+                <script src="/js/total_item.js"></script>
+        </div>
+
+    </div>
+ <!--end_구단위 지표 항목별 순위 그래프-->
+
+<!--start_기반시설 그래프 순위 그래프-->
+<div class="wrapper_facility_item" id="wrapper_facility_item100">
+    <div class="facility_item_title"><p>기반시설 현황</p><button class="button_top"type="button" onclick="location.href='#wrapper_indicator_items100' ">기반시설 점수</button></div>
+
+    <div class="wrapper_facility_item1">
+        <div class="facility_item1_title"><p>지하철역 수 / 노선 수</p></div>
+        <div class="facility_item1">
+            <div class="subway"></div>
+        </div>
+        <script src="/js/subway.js"></script>
+    </div>
+
+    <div class="wrapper_facility_item2">
+        <div class="facility_item1_title"><p>월세 평균 순위(평당: 만원)</p></div>
+        <div class="facility_item2">
+            <div class="houseprice"></div>
+        </div>
+        <script src="/js/houseprice.js"></script>
+    </div>
+
+</div>
+<!--end_기반시설 그래프 순위 그래프-->
+
+<!--start_문화환경 그래프 순위 그래프-->
+<div class="wrapper_culture_item" id="wrapper_culture_item100">
+    <div class="culture_item_title"><p>문화환경 현황</p><button class="button_top"type="button" onclick="location.href='#wrapper_indicator_items100' ">문화환경 점수</button></div>
+
+    <div class="wrapper_culture_item1">
+        <div class="culture_item1_title"><p>자치구 문화공간 수</p></div>
+        <div class="culture_item1">
+            <div class="culcount"></div>
+        </div>
+            <script src="/js/culcount.js"></script>
+    </div>
+
+    <div class="wrapper_culture_item1">
+        <div class="culture_item1_title"><p>공원 녹지 면적</p></div>
+        <div class="culture_item1">
+            <div class="park"></div>
+        </div>
+        <script src="/js/park.js"></script>
+    </div>
+
+        <div class="wrapper_culture_item2">
+        <div class="culture_item2_title"><p>상권 발달 현황</p></div>
+        <div class="culture_item2">
+            <div class="market"></div>
+        </div>
+        <script src="/js/market.js"></script>
+    </div>
+
+</div>
+<!--end_문화환경 그래프 순위 그래프-->
+
+<!--start_안전성 그래프 순위 그래프-->
+<div class="wrapper_crime_item" id="wrapper_crime_item100">
+    <div class="crime_item_title"><p>안전성 현황</p><button class="button_top"type="button" onclick="location.href='#wrapper_indicator_items100' ">안전성 점수</button></div>
+
+    <div class="wrapper_crime_item1">
+        <div class="crime_item1_title"><p>5대 범죄율 / 성범죄율</p></div>
+        <div class="crime_item1">
+            <div class="crime_ratio"></div>
+        </div>
+        <script src="/js/crime_ratio.js"></script>
+    </div>
+
+    <div class="wrapper_crime_item2">
+        <div class="crime_item2_title"><p>CCTV 수</p></div>
+        <div class="crime_item2">
+            <div class="cctv"></div>
+        </div>
+        <script src="/js/cctv.js"></script>
+        
+    </div>
+
+</div>
+<!--end_안전성 그래프 순위 그래프-->
+
+<!--start_건강/의료 그래프 순위 그래프-->
+<div class="wrapper_health_item" id="wrapper_health_item100">
+    <div class="health_item_title"><p>건강의료 현황</p><button class="button_top"type="button" onclick="location.href='#wrapper_indicator_items100' ">건강의료 점수</button></div>
+
+    <div class="wrapper_health_item1">
+        <div class="health_item1_title"><p>종합 병원 수</p></div>
+        <div class="health_item1">
+            <div class="hospital"></div>
+        </div>
+    </div>
+
+    <div class="wrapper_health_item2">
+        <div class="health_item1_title"><p>미세·초미세먼지 지수(㎍/㎥)</p></div>
+        <div class="health_item2">
+            <div class="dust"></div>
+        </div>
+    </div>
+    <script src="/js/health.js"></script>
+
+</div>
+<!--end_건강/의료 그래프 순위 그래프-->
+
+</div>
+
+</body>
+</html>

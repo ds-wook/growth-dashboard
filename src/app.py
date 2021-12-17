@@ -32,26 +32,80 @@ if __name__ == "__main__":
         sticky_mode="pinned",  # jumpy or not-jumpy, but sticky or pinned
     )
 
+    if menu_id == "Home":
+        st.header("PyUBA: Python User Behavior Analysis User Guide")
+        st.subheader("What is it?")
+        st.markdown(
+            """
+        `pyuba`는 그로스 해킹 툴 라이브러리 입니다.
+        """
+        )
+
+        st.subheader("Installation")
+        st.markdown(
+            """
+        `pyuba`는 PyPI에서 다운 받으실수 있습니다.
+        ```
+        $ pip install pyuba
+        ```
+        라고 입력하세요.
+        """
+        )
+
     if menu_id == "Cohort Analysis":
         st.title("Load Cohort Dataset")
-        data_load_state = st.text("Loading data...")
-        events = uba.load_dataset(1000)
+        st.markdown(
+            """
+            ```python
+            import pyuba as uba
+
+            events = uba.load_dataset(10000)
+            cohorts = uba.load_cohorts(events)
+            user_retention = uba.load_user_retention(cohorts)
+            display(user_retention)
+            ```
+            """
+        )
+        events = uba.load_dataset(10000)
         cohorts = uba.load_cohorts(events)
         user_retention = uba.load_user_retention(cohorts)
-
-        st.subheader("Raw data")
         st.write(events)
 
         st.header("Draw Cohorts: User Retention")
+        st.markdown(
+            """
+            ```python
+            import pyuba as uba
+            from plotly.plotly import iplot
+
+            fig = uba.draw_user_retention(user_retention.T)
+            iplot(fig)
+            ```
+            """
+        )
         fig = uba.draw_user_retention(user_retention.T)
         st.plotly_chart(fig, height=800, width=500)
 
     if menu_id == "User acquisition":
         st.title("Load User acquisition Dataset")
-        data_load_state = st.text("Loading data...")
-        events = uba.load_dataset(10000)
+        st.markdown(
+            """
+            ```python
+            import pyuba as uba
 
-        st.subheader("activity stats per period")
+            events = uba.load_dataset(10000)
+            per_period = uba.users_per_period(
+                events=events,
+                acquisition_event_name="Install",
+                user_source_col="user_source",
+                period="m",
+            )
+
+            display(per_period)
+            ```
+            """
+        )
+        events = uba.load_dataset(10000)
         st.write(
             uba.users_per_period(
                 events=events,
@@ -62,6 +116,23 @@ if __name__ == "__main__":
         )
 
         st.header("Draw User acquisition")
+        st.markdown(
+            """
+            ```python
+            import pyuba as uba
+            from plotly.plotly import iplot
+
+            events = uba.load_dataset(10000)
+            fig = uba.plot_users_per_period(
+                events=events,
+                acquisition_event_name="Install",
+                user_source_col="user_source",
+                period="m",
+            )
+            iplot(fig)
+            ```
+            """
+        )
         fig = uba.plot_users_per_period(
             events=events,
             acquisition_event_name="Install",
@@ -72,13 +143,36 @@ if __name__ == "__main__":
 
     if menu_id == "Funnel Analysis":
         st.title("Load Funnel Dataset")
-        data_load_state = st.text("Loading data...")
+        st.markdown(
+            """
+            ```python
+            import pyuba as uba
+
+            steps = ["Install", "SignUp", "Click Product", "Purchase"]
+            funnel_df = uba.create_funnel_df(events, steps)
+            display(funnel_df)
+            ```
+            """
+        )
         events = uba.load_dataset(10000)
 
         steps = ["Install", "SignUp", "Click Product", "Purchase"]
         funnel_df = uba.create_funnel_df(events, steps)
         st.write(funnel_df)
+
         st.header("Draw Funnel Analysis")
+        st.markdown(
+            """
+            ```python
+            import pyuba as uba
+            from plotly.plotly import iplot
+
+            events = uba.load_dataset(10000)
+            fig = uba.plot_stacked_funnel(events, steps, col="user_source")
+            iplot(fig)
+            ```
+            """
+        )
         fig = uba.plot_stacked_funnel(events, steps, col="user_source")
         st.plotly_chart(fig, height=800, width=500)
 
@@ -97,6 +191,3 @@ if __name__ == "__main__":
 
     # if st.button("click me"):
     #     st.info("You clicked at: {}".format(datetime.datetime.now()))
-
-    # get the id of the menu item clicked
-    st.info(f"{menu_id}")
