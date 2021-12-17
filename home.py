@@ -10,7 +10,7 @@ def local_css(file_name: str) -> str:
 
 
 def draw_abtest():
-    local_css("../style/style.css")
+    local_css("style/style.css")
 
     st.markdown(
         """
