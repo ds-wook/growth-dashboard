@@ -16,6 +16,7 @@ if __name__ == "__main__":
         {"id": "Cohort Analysis", "icon": "📈", "label": "Cohort Analysis"},
         {"id": "User acquisition", "icon": "👨‍💻", "label": "User acquisition"},
         {"id": "Funnel Analysis", "icon": "📊", "label": "Funnel Analysis"},
+        {"id": "User journey diagram", "icon": "🏃‍♂️", "label": "User journey diagram"},
         {"id": "AB-Test", "icon": "🎭", "label": "AB-Test"},
         {"id": "Notepad", "icon": "📑", "label": "Notepad"},  # no tooltip message
     ]
@@ -120,7 +121,7 @@ if __name__ == "__main__":
             """
             ```python
             import pyuba as uba
-            from plotly.plotly import iplot
+            from plotly.offline import iplot
 
             events = uba.load_dataset(10000)
             fig = uba.plot_users_per_period(
@@ -165,7 +166,7 @@ if __name__ == "__main__":
             """
             ```python
             import pyuba as uba
-            from plotly.plotly import iplot
+            from plotly.offline import iplot
 
             events = uba.load_dataset(10000)
             fig = uba.plot_stacked_funnel(events, steps, col="user_source")
@@ -174,6 +175,24 @@ if __name__ == "__main__":
             """
         )
         fig = uba.plot_stacked_funnel(events, steps, col="user_source")
+        st.plotly_chart(fig, height=800, width=500)
+
+    if menu_id == "User journey diagram":
+        st.title("Draw User journey diagram Dataset")
+        events = uba.load_dataset(10000)
+        st.markdown(
+            """
+            ```python
+            import pyuba as uba
+            from plotly.offline import iplot
+
+            events = uba.load_dataset(10000)
+            fig = uba.plot_user_flow(events, "Click Product", n_steps=5)
+            iplot(fig)
+            ```
+            """
+        )
+        fig = uba.plot_user_flow(events, "Click Product", n_steps=5)
         st.plotly_chart(fig, height=800, width=500)
 
     if menu_id == "AB-Test":
