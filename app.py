@@ -133,6 +133,25 @@ if __name__ == "__main__":
             |5|2019-01-01|2019-06-25|
             """
         )
+    
+        st.subheader("Show Revenue DataFrame")
+        st.markdown(
+            """
+            스타일링을 추가하여 한 눈에 시각화 하기 편함
+            데이터프레임으로 변환시 변수명.data로 변환 가능
+            ```python
+            retention = uba.split_revenue(sign_up, payment)
+            retention.head()
+            ```
+            |user_id|item|payment|
+            |-----|--|------|-------|
+            |1|2019-01-01|2019-06-03|
+            |2|2019-01-01|2019-11-02|
+            |3|2019-01-01|2019-01-23|
+            |4|2019-01-01|2019-04-19|
+            |5|2019-01-01|2019-06-25|
+            """
+        )
 
         retention = uba.split_revenue(sign_up, payment)
         st.write(retention)
