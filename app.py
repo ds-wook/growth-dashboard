@@ -1,4 +1,5 @@
 import hydralit_components as hc
+import pandas as pd
 import pyuba as uba
 import streamlit as st
 
@@ -46,6 +47,7 @@ if __name__ == "__main__":
         st.markdown(
             """
         `pyuba`는 PyPI에서 다운 받으실수 있습니다.
+        터미널에
         ```
         $ pip install pyuba
         ```
@@ -57,6 +59,7 @@ if __name__ == "__main__":
         st.title("Load Cohort Dataset")
         st.markdown(
             """
+            코호트 분석할때 쓰이는 코드를 불러 올 수 있습니다.
             ```python
             import pyuba as uba
 
@@ -75,6 +78,7 @@ if __name__ == "__main__":
         st.header("Draw Cohorts: User Retention")
         st.markdown(
             """
+            Retention Plot을 그려보는 코드입니다.
             ```python
             import pyuba as uba
             from plotly.plotly import iplot
@@ -86,6 +90,52 @@ if __name__ == "__main__":
         )
         fig = uba.draw_user_retention(user_retention.T)
         st.plotly_chart(fig, height=800, width=500)
+
+        st.header("Calulate Revenue")
+        st.subheader("Example Payment DataFrame")
+        st.markdown(
+            """
+            Revenue도 계산 할 수 있습니다.  
+            각 필요한 지표를 뽑을 수 있습니다.  
+            """
+        )
+        st.markdown(
+            """
+            ```python
+            payment = pd.read_excel("input/data1.xlsx", sheet_name="payment")
+            payment.head()
+            ```
+            |payment_id|item|payment|buy_date|user_id|
+            |-----|--|------|-------|--------|-------|
+            |1|itemE|20000|2019-12-01|70|
+            |2|itemB|5000|2019-12-01|1153|
+            |3|itemA|3000|2019-12-01|1210|
+            |4|itemA|3000|2019-12-01|1242|
+            |5|itemE|20000|2019-12-01|975|
+            """
+        )
+
+        payment = pd.read_excel("input/data1.xlsx", sheet_name="payment")
+        sign_up = pd.read_excel("input/data1.xlsx", sheet_name="signup")
+        st.subheader("Example Sign Up DataFrame")
+        st.markdown(
+            """
+            ```python
+            sign_up = pd.read_excel("input/data1.xlsx", sheet_name="signup")
+            sign_up.head()
+            ```
+            |user_id|item|payment|
+            |-----|--|------|-------|
+            |1|2019-01-01|2019-06-03|
+            |2|2019-01-01|2019-11-02|
+            |3|2019-01-01|2019-01-23|
+            |4|2019-01-01|2019-04-19|
+            |5|2019-01-01|2019-06-25|
+            """
+        )
+
+        retention = uba.split_revenue(sign_up, payment)
+        st.write(events)
 
     if menu_id == "User acquisition":
         st.title("Load User acquisition Dataset")
