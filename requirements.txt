@@ -2,5 +2,5 @@ hydralit-components==1.0.6
 streamlit==1.2.0
 streamlit-folium==0.4.0
 streamlit-lottie==0.0.2
+openpyxl==3.0.9
 pyuba
-openpyxl
