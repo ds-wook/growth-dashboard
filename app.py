@@ -135,7 +135,7 @@ if __name__ == "__main__":
         )
 
         retention = uba.split_revenue(sign_up, payment)
-        st.write(events)
+        st.write(retention)
 
     if menu_id == "User acquisition":
         st.title("Load User acquisition Dataset")
