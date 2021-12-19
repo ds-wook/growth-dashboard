@@ -14,10 +14,9 @@ def draw_abtest():
 
     st.markdown(
         """
-    # AB test calculator
-    _Enter your test data into the sidebar and choose either a Bayesian or
-    Frequentist testing approach. Below is Bayesian by default._
-    ---
+    AB test calculator
+    Bayesian과 Frequent방식으로 AB Test를 수행합니다
+    👈 메뉴 설정은 옆에 있습니다.
     """
     )
 
@@ -65,6 +64,7 @@ def draw_abtest():
     if method == "Bayesian":
         st.markdown(
             """
+            Bayesian 코드 입니다.
             ```python
             from pyuba.calc.bayesian import Bayesian
 
@@ -147,6 +147,7 @@ def draw_abtest():
     else:  # Frequentist
         st.markdown(
             """
+            Frequency 방식의 코드 입니다.
             ```python
             from pyuba.calc.frequentist import Frequentist
 
@@ -229,6 +230,7 @@ def draw_abtest():
 
         st.markdown(
             """
+            frequency 데이터를 보여줍니다.
             ```python
             from pyplot.pyplot import iplot
 
