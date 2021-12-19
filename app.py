@@ -115,8 +115,8 @@ if __name__ == "__main__":
             """
         )
 
-        payment = pd.read_excel("input/data1.xlsx", sheet_name="payment")
-        sign_up = pd.read_excel("input/data1.xlsx", sheet_name="signup")
+        payment = pd.read_excel("./input/data1.xlsx", sheet_name="payment")
+        sign_up = pd.read_excel("./input/data1.xlsx", sheet_name="signup")
         st.subheader("Example Sign Up DataFrame")
         st.markdown(
             """
