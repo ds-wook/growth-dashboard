@@ -39,7 +39,7 @@ if __name__ == "__main__":
         st.subheader("What is it?")
         st.markdown(
             """
-        `pyuba`는 그로스 해킹 툴 라이브러리 입니다.
+        `pyuba`는 그로스 해킹 툴 라이브러리 입니다.  
         """
         )
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         st.title("Load Cohort Dataset")
         st.markdown(
             """
-            코호트 분석할때 쓰이는 코드를 불러 올 수 있습니다.
+            코호트 분석할때 쓰이는 코드를 불러 올 수 있습니다.  
             ```python
             import pyuba as uba
 
@@ -78,7 +78,7 @@ if __name__ == "__main__":
         st.header("Draw Cohorts: User Retention")
         st.markdown(
             """
-            Retention Plot을 그려보는 코드입니다.
+            Retention Plot을 그려보는 코드입니다.  
             ```python
             import pyuba as uba
             from plotly.plotly import iplot
@@ -137,8 +137,8 @@ if __name__ == "__main__":
         st.subheader("Show Revenue DataFrame")
         st.markdown(
             """
-            스타일링을 추가하여 한 눈에 시각화 하기 편함
-            데이터프레임으로 변환시 변수명.data로 변환 가능
+            스타일링을 추가하여 한 눈에 시각화 하기 편함  
+            데이터프레임으로 변환시 변수명.data로 변환 가능  
             ```python
             retention = uba.split_revenue(sign_up, payment)
             retention.head()
@@ -153,8 +153,8 @@ if __name__ == "__main__":
         st.title("Load User acquisition Dataset")
         st.markdown(
             """
-            유저의 일 월 년 별로 사용량 및 사용 시간을 분석한 데이터 입니다.
-            라이브러리와 유사한 데이터 프레임에서도 동작 가능 합니다.
+            유저의 일 월 년 별로 사용량 및 사용 시간을 분석한 데이터 입니다.  
+            라이브러리와 유사한 데이터 프레임에서도 동작 가능 합니다.  
             ```python
             import pyuba as uba
 
@@ -183,8 +183,8 @@ if __name__ == "__main__":
         st.header("Draw User acquisition")
         st.markdown(
             """
-            유저의 일 월 년 별로 사용량 및 사용 시간을 시각화한 데이터 입니다.
-            해당 컬럼과 이름이 맞는 경우 해당 코드를 사용할 수 있습니다.
+            유저의 일 월 년 별로 사용량 및 사용 시간을 시각화한 데이터 입니다.  
+            해당 컬럼과 이름이 맞는 경우 해당 코드를 사용할 수 있습니다.  
             ```python
             import pyuba as uba
             from plotly.offline import iplot
@@ -213,7 +213,7 @@ if __name__ == "__main__":
         st.markdown(
             """
             퍼널 데이터에 쓰이는 데이터입니다.  
-            해당 데이터와 유사한 데이터 프레임에 동작 합니다.
+            해당 데이터와 유사한 데이터 프레임에 동작 합니다.  
             ```python
             import pyuba as uba
 
@@ -232,8 +232,8 @@ if __name__ == "__main__":
         st.header("Draw Funnel Analysis")
         st.markdown(
             """
-            Funnel 데이터를 시각화한 코드 입니다.
-            위 데이터와 유사한 데이터 프레임에 시각화가 가능합니다.
+            Funnel 데이터를 시각화한 코드 입니다.  
+            위 데이터와 유사한 데이터 프레임에 시각화가 가능합니다.  
             ```python
             import pyuba as uba
             from plotly.offline import iplot
@@ -252,8 +252,8 @@ if __name__ == "__main__":
         events = uba.load_dataset(10000)
         st.markdown(
             """
-            유저의 사용자 여정을 그린 시각화 코드입니다.
-            이벤트 데이터 프레임에 동작 합니다.
+            유저의 사용자 여정을 그린 시각화 코드입니다.  
+            이벤트 데이터 프레임에 동작 합니다.  
             ```python
             import pyuba as uba
             from plotly.offline import iplot

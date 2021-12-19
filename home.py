@@ -15,8 +15,8 @@ def draw_abtest():
     st.markdown(
         """
     AB test calculator
-    Bayesian과 Frequent방식으로 AB Test를 수행합니다
-    👈 메뉴 설정은 옆에 있습니다.
+    Bayesian과 Frequent방식으로 AB Test를 수행합니다.  
+    👈 메뉴 설정은 옆에 있습니다.  
     """
     )
 
