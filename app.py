@@ -51,7 +51,7 @@ if __name__ == "__main__":
         `pyuba`는 PyPI에서 다운 받으실수 있습니다.
         터미널에
         ```
-        $ pip install pyuba
+        pip install pyuba
         ```
         라고 입력하세요.
         """
@@ -135,7 +135,7 @@ if __name__ == "__main__":
             |5|2019-01-01|2019-06-25|
             """
         )
-    
+
         st.subheader("Show Revenue DataFrame")
         st.markdown(
             """
